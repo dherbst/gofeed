@@ -1,4 +1,4 @@
-package ext_test
+package ext
 
 import (
 	"bytes"
