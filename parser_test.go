@@ -149,7 +149,7 @@ func TestParser_ParseURLWithContext(t *testing.T) {
 	defer cancel()
 	fp := NewParser()
 	fp.Client = client
-	_, err := fp.ParseURLWithContext(server.URL, ctx)
+	_, err := fp.ParseURLWithContext(ctx, server.URL)
 	assert.True(t, strings.Contains(err.Error(), ctx.Err().Error()))
 }
 
