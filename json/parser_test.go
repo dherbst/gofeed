@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/mmcdole/gofeed/json"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,7 +21,7 @@ func TestParser_Parse(t *testing.T) {
 	f, _ := ioutil.ReadFile(ff)
 
 	// Parse actual feed
-	fp := &json.Parser{}
+	fp := &Parser{}
 	_, err := fp.Parse(bytes.NewReader(f))
 	assert.Contains(t, err.Error(), "expect }")
 

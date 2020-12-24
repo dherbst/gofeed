@@ -1,4 +1,4 @@
-package gofeed_test
+package gofeed
 
 import (
 	"bytes"
@@ -11,11 +11,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mmcdole/gofeed"
-	"github.com/mmcdole/gofeed/atom"
-	ext "github.com/mmcdole/gofeed/extensions"
-	"github.com/mmcdole/gofeed/json"
-	"github.com/mmcdole/gofeed/rss"
+	"github.com/dherbst/gofeed/atom"
+	ext "github.com/dherbst/gofeed/extensions"
+	"github.com/dherbst/gofeed/json"
+	"github.com/dherbst/gofeed/rss"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -33,7 +32,7 @@ func TestDefaultRSSTranslator_Translate(t *testing.T) {
 		defer f.Close()
 
 		// Parse actual feed
-		translator := &gofeed.DefaultRSSTranslator{}
+		translator := &DefaultRSSTranslator{}
 		fp := &rss.Parser{}
 		rssFeed, _ := fp.Parse(f)
 		actual, _ := translator.Translate(rssFeed)
@@ -43,7 +42,7 @@ func TestDefaultRSSTranslator_Translate(t *testing.T) {
 		e, _ := ioutil.ReadFile(ef)
 
 		// Unmarshal expected feed
-		expected := &gofeed.Feed{}
+		expected := &Feed{}
 		jsonEncoding.Unmarshal(e, &expected)
 
 		if assert.Equal(t, actual, expected, "Feed file %s.xml did not match expected output %s.json", name, name) {
@@ -55,7 +54,7 @@ func TestDefaultRSSTranslator_Translate(t *testing.T) {
 }
 
 func TestDefaultRSSTranslator_Translate_WrongType(t *testing.T) {
-	translator := &gofeed.DefaultRSSTranslator{}
+	translator := &DefaultRSSTranslator{}
 	af, err := translator.Translate("wrong type")
 	assert.Nil(t, af)
 	assert.NotNil(t, err)
@@ -75,7 +74,7 @@ func TestDefaultAtomTranslator_Translate(t *testing.T) {
 		defer f.Close()
 
 		// Parse actual feed
-		translator := &gofeed.DefaultAtomTranslator{}
+		translator := &DefaultAtomTranslator{}
 		fp := &atom.Parser{}
 		atomFeed, _ := fp.Parse(f)
 		actual, _ := translator.Translate(atomFeed)
@@ -85,7 +84,7 @@ func TestDefaultAtomTranslator_Translate(t *testing.T) {
 		e, _ := ioutil.ReadFile(ef)
 
 		// Unmarshal expected feed
-		expected := &gofeed.Feed{}
+		expected := &Feed{}
 		jsonEncoding.Unmarshal(e, &expected)
 
 		if assert.Equal(t, actual, expected, "Feed file %s.xml did not match expected output %s.json", name, name) {
@@ -97,7 +96,7 @@ func TestDefaultAtomTranslator_Translate(t *testing.T) {
 }
 
 func TestDefaultAtomTranslator_Translate_WrongType(t *testing.T) {
-	translator := &gofeed.DefaultAtomTranslator{}
+	translator := &DefaultAtomTranslator{}
 	af, err := translator.Translate("wrong type")
 	assert.Nil(t, af)
 	assert.NotNil(t, err)
@@ -113,7 +112,7 @@ func TestDefaultJSONTranslator_Translate(t *testing.T) {
 	f, _ := ioutil.ReadFile(ff)
 
 	// Parse actual feed
-	translator := &gofeed.DefaultJSONTranslator{}
+	translator := &DefaultJSONTranslator{}
 	fp := json.Parser{}
 	feed, _ := fp.Parse(bytes.NewReader(f))
 	actual, _ := translator.Translate(feed)
@@ -181,7 +180,7 @@ func TestDefaultJSONTranslator_Translate(t *testing.T) {
 }
 
 func TestDefaultJSONTranslator_Translate_WrongType(t *testing.T) {
-	translator := &gofeed.DefaultJSONTranslator{}
+	translator := &DefaultJSONTranslator{}
 	af, err := translator.Translate("wrong type")
 	assert.Nil(t, af)
 	assert.NotNil(t, err)

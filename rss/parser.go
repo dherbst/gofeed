@@ -7,7 +7,7 @@ import (
 
 	ext "github.com/dherbst/gofeed/extensions"
 	"github.com/dherbst/gofeed/internal/shared"
-	xpp "github.com/dherbst/goxpp"
+	xpp "github.com/mmcdole/goxpp"
 )
 
 // Parser is a RSS Parser
